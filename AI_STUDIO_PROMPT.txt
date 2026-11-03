@@ -1,0 +1,5 @@
+Create an Android app named "Study with Abhi Pro" with package ID com.techabhi.studyproapp.
+
+Use Kotlin and Jetpack Compose. Keep the existing WebView wrapper in MainActivity.kt and load the local file app/src/main/assets/grown.html. Preserve JavaScript, local storage, audio playback, and internet access. Do not add any payment flow, premium key, access-key validation, subscription, or paywall.
+
+Brand the app as "Study with Abhi Pro" and show "Developed by Tech by Abhi" in the interface. The local HTML files grown.html and grow.html are the editable user interface. Make design changes in those files first. Lecture or institute links must open directly without asking for a key or payment.

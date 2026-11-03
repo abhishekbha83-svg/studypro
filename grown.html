@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Study with Abhi Pro</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+:root {
+  --bg: #050505; 
+  --card: rgba(22, 24, 32, 0.65); 
+  --pill: rgba(30, 32, 40, 0.75); 
+  --text: #ffffff; 
+  --muted: #94a3b8; 
+  --accent: #0ea5e9; 
+  --accentSoft: rgba(14, 165, 233, 0.15);
+  --border-light: rgba(255, 255, 255, 0.08);
+}
+html[data-theme="light"] {
+  --bg: #f4f6f8; 
+  --card: rgba(255, 255, 255, 0.75); 
+  --pill: rgba(255, 255, 255, 0.9); 
+  --text: #0f172a; 
+  --muted: #475569;
+  --border-light: rgba(0, 0, 0, 0.05);
+}
+
+html { background-color: var(--bg); transition: background-color 0.4s ease; min-height: 100vh; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+body {
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 50% 0%, var(--accentSoft), transparent 60%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-image 0.5s ease, background-color 0.5s ease, color 0.5s ease;
+}
+
+.card, .sec, .status, .footer, .tool, .mode {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-light);
+}
+
+.wrap { max-width: 480px; margin: 0 auto; padding: 24px 18px 80px; position: relative; z-index: 10; }
+.flex { display: flex; align-items: center; justify-content: space-between; }
+
+.card, .tool, .btn-icon, .btn-open, .btn-lg, .c-dot, .t-btn, .btn-add, .btn-act, .btn-lofi, .lofi-small-btn, .mode {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.card:active, .tool:active, .btn-icon:active, .btn-open:active, .btn-lg:active, .t-btn:active, .btn-add:active, .btn-act:active, .btn-lofi:active, .mode:active {
+  transform: scale(0.96); opacity: 0.9;
+}
+
+.floating-panda { font-size: 42px; animation: float 3.5s ease-in-out infinite; display: inline-block; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2)); }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px) rotate(4deg); } 100% { transform: translateY(0px); } }
+
+.brand { font-size: 24px; font-weight: 900; background: linear-gradient(135deg, var(--text) 10%, var(--accent) 100%); -webkit-background-clip: text; color: transparent; letter-spacing: -0.5px; }
+.pill-box { display: flex; gap: 8px; padding: 6px; border-radius: 99px; background: var(--pill); border: 1px solid var(--border-light); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.btn-icon { width: 38px; height: 38px; border: none; border-radius: 50%; background: transparent; color: var(--muted); display: grid; place-items: center; cursor: pointer; font-size: 15px; }
+.btn-icon.active { background: var(--accent); color: #fff; box-shadow: 0 4px 15px var(--accentSoft); }
+.hero { text-align: center; margin: 15px 0 25px; }
+.badge { background: var(--pill); border: 1px solid var(--border-light); color: var(--accent); padding: 8px 18px; border-radius: 99px; font-size: 10px; letter-spacing: 3px; font-weight: 800; display: inline-block; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-transform: uppercase; }
+h1 { font-size: 44px; line-height: 1; font-weight: 900; letter-spacing: -1.5px; background: linear-gradient(135deg, var(--text) 25%, var(--accent) 100%); -webkit-background-clip: text; color: transparent; filter: drop-shadow(0 2px 15px rgba(0,0,0,0.15)); margin-bottom: 8px; }
+.sub { font-size: 11px; letter-spacing: 4px; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+.colors { background: var(--pill); border: 1px solid var(--border-light); padding: 14px; border-radius: 99px; display: flex; gap: 16px; justify-content: center; margin-bottom: 22px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.c-dot { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.3s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+.c-dot.active { transform: scale(1.25); border-color: #fff; box-shadow: 0 0 18px currentColor, inset 0 2px 4px rgba(0,0,0,0.2); }
+.status { background: var(--pill); border: 1px solid var(--border-light); border-radius: 20px; padding: 16px; text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+.mini-box { flex: 1; background: var(--pill); border: 1px solid var(--border-light); border-radius: 20px; padding: 14px 10px; font-size: 12px; font-weight: 700; text-align: center; display: flex; flex-direction: column; gap: 4px; }
+.mini-box span { color: var(--accent); font-size: 14px; font-weight: 800; } .mini-box .gold { color: #fbbf24; text-shadow: 0 0 12px rgba(251,191,36,0.4); }
+.list { display: flex; flex-direction: column; gap: 14px; }
+
+.card { background: var(--card); border-radius: 24px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; border: 1px solid var(--border-light); }
+.card.active { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(168,85,247,.12), 0 12px 35px 0 var(--accentSoft); background: rgba(14, 165, 233, 0.03); }
+.c-ic { width: 54px; height: 54px; border-radius: 18px; background: rgba(255,255,255,.05); display: grid; place-items: center; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.15); border: 1px solid var(--border-light); }
+.c-ic img { width: 100%; height: 100%; object-fit: cover; }
+.c-txt { flex: 1; } 
+.c-tit { font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; margin-bottom: 2px; } 
+.c-des { font-size: 12px; color: var(--muted); font-weight: 500; }
+.c-arr { width: 36px; height: 36px; border-radius: 50%; background: var(--pill); display: grid; place-items: center; color: var(--muted); font-size: 13px; border: 1px solid var(--border-light); }
+.card:active .c-arr { background: var(--accent); color: #fff; transform: translateX(6px); border-color: var(--accent); box-shadow: 0 4px 15px var(--accentSoft); }
+
+.sec { background: var(--card); border-radius: 28px; padding: 20px; margin-bottom: 16px; }
+.s-tit { font-size: 12px; font-weight: 800; letter-spacing: 2px; color: var(--muted); margin-bottom: 16px; text-transform: uppercase; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mode { padding: 16px 14px; border-radius: 20px; background: rgba(255,255,255,.02); border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.mode.on { border-color: var(--accent); background: rgba(14,165,233,.05); box-shadow: 0 8px 25px var(--accentSoft); } 
+.m-ic { width: 44px; height: 44px; border-radius: 16px; background: var(--pill); color: var(--muted); display: grid; place-items: center; margin-right: 12px; font-size: 16px; border: 1px solid var(--border-light); }
+.mode.on .m-ic { background: var(--accent); color: #fff; border-color: var(--accent); }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-light); } .mode.on .dot { background: #10b981; box-shadow: 0 0 12px #10b981; }
+
+.tool { min-height: 105px; border-radius: 22px; padding: 16px; background: rgba(255,255,255,.02); border: 1px solid var(--border-light); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
+.tool-ic { width: 42px; height: 42px; border-radius: 14px; background: var(--pill); color: var(--accent); display: grid; place-items: center; border: 1px solid var(--border-light); font-size: 18px; margin-bottom: 12px; }
+
+.footer { margin-top: 24px; background: var(--pill); border: 1px solid var(--border-light); border-radius: 24px; padding: 16px; text-align: center; font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: 1.5px; }
+.footer span { color: var(--accent); font-size: 14px; text-shadow: 0 2px 10px var(--accentSoft); }
+.view { display: none; width: 100%; min-height: 100vh; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.view.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.splash-overlay { position: fixed; inset: 0; z-index: 99999; background-color: #050505; background-image: radial-gradient(circle at center, rgba(234,179,8,0.15), transparent 80%); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease-out, visibility 0.4s ease-out; overflow: hidden; }
+.splash-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.luxury-car-coded { width: 340px; height: auto; margin-bottom: 25px; animation: glideCar 1.5s ease-in-out forwards; }
+.splash-logo { font-size: 42px; font-weight: 900; letter-spacing: 2px; background: linear-gradient(135deg, #fff 20%, #eab308 100%); -webkit-background-clip: text; color: transparent; opacity: 0; animation: popLogo 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.2s; text-align: center; }
+.splash-dev { margin-top: 15px; font-size: 13px; font-weight: 800; letter-spacing: 4px; color: #fbbf24; opacity: 0; animation: fadeInText 0.6s ease-out forwards 0.5s; text-transform: uppercase; text-shadow: 0 0 10px rgba(251,191,36,0.3); }
+@keyframes glideCar { 0% { transform: translateX(-80vw); opacity: 0; } 25% { transform: translateX(-5vw); opacity: 1; } 75% { transform: translateX(5vw); opacity: 1; } 100% { transform: translateX(80vw); opacity: 0; } }
+@keyframes popLogo { 0% { transform: scale(0.8); opacity: 0; filter: blur(5px); } 100% { transform: scale(1); opacity: 1; filter: blur(0); } }
+@keyframes fadeInText { to { opacity: 1; } }
+
+.t-wrap { position: relative; width: 260px; height: 260px; margin: 40px auto; display: flex; align-items: center; justify-content: center; }
+.t-ring-outer { position: absolute; inset: -15px; border-radius: 50%; border: 2px dashed var(--border-light); z-index: 1; transition: all 0.3s; }
+.t-ring-inner { position: absolute; inset: 12px; border-radius: 50%; background: radial-gradient(circle at center, rgba(255,255,255,.03) 0%, transparent 70%); box-shadow: inset 0 0 30px rgba(0,0,0,.4); z-index: 1; }
+@keyframes spinSlow { 100% { transform: rotate(360deg); } }
+@keyframes pulseGlow { 0%, 100% { filter: drop-shadow(0 0 15px var(--accent)) drop-shadow(0 0 5px var(--accentSoft)); } 50% { filter: drop-shadow(0 0 30px var(--accent)) drop-shadow(0 0 15px var(--accentSoft)); } }
+.is-running .t-ring-outer { animation: spinSlow 15s linear infinite; border-color: var(--accentSoft); }
+.is-running .t-pr { animation: pulseGlow 2s ease-in-out infinite; }
+.is-running .t-txt { transform: scale(1.08); text-shadow: 0 0 20px var(--accentSoft); }
+.t-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); z-index: 2; overflow: visible; }
+.t-bg { fill: none; stroke: var(--pill); stroke-width: 8; }
+.t-pr { fill: none; stroke: var(--accent); stroke-width: 12; stroke-linecap: round; stroke-dasharray: 722; transition: stroke-dashoffset 1s linear, stroke 0.5s ease; filter: drop-shadow(0 0 10px var(--accentSoft)); }
+.t-txt { font-size: 60px; font-weight: 900; background: linear-gradient(135deg, var(--text) 20%, var(--accent) 100%); -webkit-background-clip: text; color: transparent; z-index: 3; font-variant-numeric: tabular-nums; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+.t-btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.t-btn { background: var(--pill); border: 1px solid var(--border-light); color: var(--muted); padding: 16px 0; border-radius: 18px; font-size: 15px; font-weight: 800; cursor: pointer; }
+.t-btn.active { background: var(--accentSoft); color: var(--accent); border-color: var(--accent); box-shadow: 0 4px 15px var(--accentSoft); }
+.t-ctrl { display: flex; gap: 14px; }
+.btn-lg { flex: 1; padding: 18px; border-radius: 22px; border: none; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-start { background: var(--accent); color: #fff; box-shadow: 0 8px 25px var(--accentSoft); } 
+.btn-rst { background: var(--pill); color: var(--text); border: 1px solid var(--border-light); }
+
+.srv-head { text-align: center; margin: 40px 0 50px; }
+.srv-tit { font-size: 42px; font-weight: 900; line-height: 1.1; letter-spacing: 1px; text-transform: uppercase; }
+.srv-sub { font-size: 14px; color: var(--muted); margin-top: 10px; font-weight: 500; }
+.srv-card { background: rgba(18,20,28,.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 32px; padding: 40px 24px; text-align: center; border-top: 4px solid var(--accent); box-shadow: 0 20px 50px rgba(0,0,0,.5); position: relative; overflow: hidden; border-left: 1px solid var(--border-light); border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+.srv-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at top, var(--accentSoft), transparent 50%); pointer-events: none; }
+.srv-rock { font-size: 60px; margin-bottom: 20px; position: relative; z-index: 1; filter: drop-shadow(0 10px 15px rgba(0,0,0,.4)); }
+.sc-tit { color: #10b981; font-size: 26px; font-weight: 900; letter-spacing: 1px; margin-bottom: 12px; position: relative; z-index: 1; }
+.sc-des { color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 30px; position: relative; z-index: 1; font-weight: 500; }
+.sc-row { display: flex; justify-content: center; gap: 12px; margin-bottom: 35px; position: relative; z-index: 1; flex-wrap: wrap; }
+.sc-pill { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); padding: 12px 22px; border-radius: 16px; font-size: 13px; font-weight: 700; color: #fff; }
+
+.t-inp, textarea { width: 100%; padding: 16px 20px; border-radius: 18px; background: rgba(255,255,255,.03); border: 1px solid var(--border-light); color: var(--text); font-size: 14px; outline: none; resize: none; transition: all 0.3s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); font-weight: 500; }
+.t-inp::placeholder, textarea::placeholder { color: var(--muted); font-weight: 400; opacity: 0.7; }
+.t-inp:focus, textarea:focus { border-color: var(--accent); background: rgba(255,255,255,.06); box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 0 0 4px var(--accentSoft); }
+
+.btn-open { width: 100%; padding: 20px; border: none; border-radius: 18px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 30px var(--accentSoft); position: relative; z-index: 1; }
+.btn-add { width: 100%; padding: 16px 20px; border: none; border-radius: 16px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 14px; box-shadow: 0 8px 20px var(--accentSoft); display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+.task-list, .notes-list { display: flex; flex-direction: column; gap: 12px; }
+.task-item, .note-item { background: rgba(255,255,255,.03); border: 1px solid var(--border-light); border-radius: 20px; padding: 16px; display: flex; justify-content: space-between; gap: 12px; align-items: center; transition: all 0.3s ease; }
+.task-item:hover, .note-item:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); }
+.t-name, .note-title { font-weight: 800; font-size: 16px; word-break: break-word; color: var(--text); margin-bottom: 4px; }
+.t-time, .note-text, .note-meta, .c-des { font-size: 12px; color: var(--muted); font-weight: 500; }
+.t-actions, .note-actions { display: flex; gap: 10px; }
+.btn-act { border: none; color: #fff; border-radius: 14px; width: 40px; height: 40px; display: grid; place-items: center; cursor: pointer; font-size: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.btn-del { background: #ef4444; } .btn-del:active { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+
+.note-head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+.note-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 99px; background: rgba(255,255,255,.06); font-size: 11px; font-weight: 700; border: 1px solid var(--border-light); }
+.note-color-dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 2px 2px rgba(0,0,0,0.2); }
+.empty-msg { color: var(--muted); font-size: 14px; text-align: center; padding: 24px 0; line-height: 1.6; font-weight: 500; }
+
+.lofi-controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 20px 0; }
+.btn-lofi { width: 60px; height: 60px; border: none; border-radius: 20px; background: var(--pill); color: var(--text); font-size: 20px; cursor: pointer; display: grid; place-items: center; border: 1px solid var(--border-light); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.btn-lofi-play { width: 75px; height: 75px; background: var(--accent); color: #fff; box-shadow: 0 10px 30px var(--accentSoft); font-size: 24px; border-radius: 24px; }
+.lofi-bar { width: 100%; height: 12px; border-radius: 99px; background: rgba(255,255,255,.05); overflow: hidden; cursor: pointer; border: 1px solid var(--border-light); }
+.lofi-fill { width: 0; height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.1s linear; }
+.lofi-track { background: var(--pill); border: 1px solid var(--border-light); padding: 16px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; gap: 14px; cursor: pointer; transition: all 0.3s ease; }
+.lofi-track:active { transform: scale(0.98); }
+.lofi-track.active { border-color: var(--accent); background: rgba(255,255,255,.06); box-shadow: 0 4px 20px var(--accentSoft); }
+.lofi-track-info { flex: 1; }
+.lofi-track-title { font-size: 15px; font-weight: 800; margin-bottom: 4px; color: var(--text); }
+.lofi-track-sub { font-size: 12px; color: var(--accent); font-weight: 700; }
+.lofi-small-btn { width: 40px; height: 40px; border: none; border-radius: 14px; background: rgba(255,255,255,.05); color: var(--text); cursor: pointer; font-size: 14px; border: 1px solid var(--border-light); }
+
+input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px var(--accentSoft); }
+input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: rgba(255,255,255,.1); border-radius: 99px; border: 1px solid var(--border-light); }
+
+/* ================= NETWORK OVERLAY STYLES ================= */
+.network-overlay { position: fixed; inset: 0; z-index: 100000; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; }
+.network-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; transform: scale(1.05); }
+.network-box { background: var(--card); border: 1px solid #ef4444; padding: 30px 20px; border-radius: 24px; text-align: center; box-shadow: 0 15px 40px rgba(239, 68, 68, 0.2); max-width: 320px; width: 90%; transform: translateY(0); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.network-overlay.hidden .network-box { transform: translateY(30px); }
+.net-icon { font-size: 48px; color: #ef4444; margin-bottom: 16px; animation: pulseNet 2s infinite; }
+@keyframes pulseNet { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+.net-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.net-desc { font-size: 14px; color: var(--muted); font-weight: 500; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- ================= NETWORK STATUS OVERLAY ================= -->
+<div id="network-status" class="network-overlay hidden">
+  <div class="network-box">
+    <i class="fa-solid fa-wifi net-icon"></i>
+    <div class="net-title">No Internet Connection</div>
+    <div class="net-desc">Bhai, lagta hai net band ho gaya hai. Kripya apna internet connection check karein! 🐼</div>
+  </div>
+</div>
+
+<div id="splash-screen" class="splash-overlay">
+  <svg class="luxury-car-coded" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#fde047"/>
+        <stop offset="40%" stop-color="#eab308"/>
+        <stop offset="100%" stop-color="#ca8a04"/>
+      </linearGradient>
+      <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#334155"/>
+        <stop offset="100%" stop-color="#0f172a"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="400" cy="265" rx="350" ry="15" fill="rgba(234, 179, 8, 0.4)" filter="blur(12px)"/>
+    <circle cx="180" cy="220" r="45" fill="#0f0f0f"/><circle cx="180" cy="220" r="30" fill="#222" stroke="#555" stroke-width="3"/><circle cx="180" cy="220" r="10" fill="#eab308"/>
+    <circle cx="630" cy="220" r="45" fill="#0f0f0f"/><circle cx="630" cy="220" r="30" fill="#222" stroke="#555" stroke-width="3"/><circle cx="630" cy="220" r="10" fill="#eab308"/>
+    <path d="M 40,160 C 30,130 50,120 90,115 C 150,105 240,70 320,50 C 420,25 500,35 580,70 L 720,120 C 770,135 790,160 780,190 L 760,230 L 690,230 A 55,55 0 0,0 570,230 L 240,230 A 55,55 0 0,0 120,230 L 30,230 Z" fill="url(#bodyGrad)"/>
+    <path d="M 30,230 L 120,230 A 55,55 0 0,1 240,230 L 570,230 A 55,55 0 0,1 690,230 L 760,230 L 750,240 L 30,240 Z" fill="#050505"/>
+    <path d="M 300,100 C 370,55 460,45 520,65 L 560,105 L 340,115 Z" fill="url(#glassGrad)"/>
+    <path d="M 340,115 L 560,105 L 550,115 L 340,125 Z" fill="#1e293b"/>
+    <path d="M 190,150 L 310,130 L 330,190 L 230,200 Z" fill="#0f0f0f"/><path d="M 230,200 L 330,190 L 320,200 L 230,210 Z" fill="#111"/>
+    <polygon points="700,125 760,140 730,150 690,135" fill="#fff" filter="drop-shadow(0 0 15px #fff)"/>
+    <polygon points="35,140 65,130 55,150" fill="#ef4444" filter="drop-shadow(0 0 15px #ef4444)"/>
+    <path d="M 90,115 C 150,105 240,70 320,50 C 420,25 500,35 580,70 L 720,120" stroke="rgba(255,255,255,0.4)" stroke-width="4" fill="none"/>
+    <path d="M 100,140 L 290,130" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+    <path d="M 510,120 L 690,150" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+  </svg>
+  <div class="splash-logo">STUDY WITH ABHI PRO</div>
+  <div class="splash-dev">DEVELOPED BY TECH BY ABHI</div>
+</div>
+
+<!-- ================= HOME SCREEN ================= -->
+<div id="view-home" class="view active">
+  <div class="wrap">
+    <div class="flex top">
+      <div class="brand">Study with Abhi Pro</div>
+      <div class="floating-panda">🐼</div>
+      <div class="pill-box">
+        <button class="btn-icon active top-dark" onclick="changeTheme('dark')"><i class="fa-solid fa-moon"></i></button>
+        <button class="btn-icon top-light" onclick="changeTheme('light')"><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+    
+    <div class="hero">
+      <div class="badge">|| ज य श्री R A M ||</div>
+      <h1>STUDY WITH ABHI PRO</h1>
+      <div class="sub">Select Aesthetics Color</div>
+    </div>
+    <div class="colors">
+      <div class="c-dot active" style="background:#0ea5e9" onclick="changeColor('#0ea5e9', this)"></div>
+      <div class="c-dot" style="background:#f43f5e" onclick="changeColor('#f43f5e', this)"></div>
+      <div class="c-dot" style="background:#a855f7" onclick="changeColor('#a855f7', this)"></div>
+      <div class="c-dot" style="background:#22c55e" onclick="changeColor('#22c55e', this)"></div>
+      <div class="c-dot" style="background:#fb7185" onclick="changeColor('#fb7185', this)"></div>
+    </div>
+    
+    <div class="status">Ready to study, Panda Scholar 🐼</div>
+    
+    <div class="flex" style="gap:12px;margin-bottom:20px">
+      <div class="mini-box">Welcome, <span>Student</span></div>
+      <div class="mini-box">Access <span class="gold">Unlocked</span></div>
+    </div>
+    
+    <div class="list" id="institute-list">
+      <div class="empty-msg">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size:28px; margin-bottom:12px; color:var(--accent);"></i><br>
+        Loading Institutes... 🐼
+      </div>
+    </div>
+
+    <div class="footer">DEVELOPED BY <span>TECH BY ABHI</span></div>
+  </div>
+</div>
+
+<!-- ================= TOOLS SCREEN ================= -->
+<div id="view-tools" class="view">
+  <div class="wrap">
+    <div class="flex top">
+      <button class="btn-icon" onclick="goToPage('view-home')" style="border:1px solid var(--border-light)"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="brand" style="font-size:22px; color:var(--text); background:none; -webkit-text-fill-color: var(--text);">Tools</div>
+      <div class="floating-panda">🐼</div>
+      <div class="pill-box">
+        <button class="btn-icon active top-dark" onclick="changeTheme('dark')"><i class="fa-solid fa-moon"></i></button>
+        <button class="btn-icon top-light" onclick="changeTheme('light')"><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+
+    <div class="sec" style="margin-top:24px;">
+      <div class="s-tit">Theme Mode</div>
+      <div class="grid2">
+        <div class="mode top-dark active on" onclick="changeTheme('dark')">
+          <div class="flex" style="gap:12px;">
+            <div class="m-ic"><i class="fa-solid fa-moon"></i></div>
+            <div>
+              <div class="c-tit" style="font-size:14px">Dark</div>
+              <div class="c-des">Focus look</div>
+            </div>
+          </div>
+          <div class="dot" id="dark-dot"></div>
+        </div>
+        <div class="mode top-light" onclick="changeTheme('light')">
+          <div class="flex" style="gap:12px;">
+            <div class="m-ic" style="color:var(--text); background:transparent;"><i class="fa-solid fa-sun"></i></div>
+            <div>
+              <div class="c-tit" style="font-size:14px">Light</div>
+              <div class="c-des">Clean look</div>
+            </div>
+          </div>
+          <div class="dot" id="light-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="s-tit">Study Tools</div>
+      <div class="grid2">
+        <div class="tool" onclick="goToPage('view-batchee')">
+          <div class="flex">
+            <div class="tool-ic"><i class="fa-solid fa-graduation-cap"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">Batches</div>
+          <div class="c-des">Premium hub</div>
+        </div>
+        <div class="tool" onclick="goToPage('view-focus')">
+          <div class="flex">
+            <div class="tool-ic"><i class="fa-solid fa-bullseye"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">Focus</div>
+          <div class="c-des">Deep study</div>
+        </div>
+        <div class="tool" onclick="goToPage('view-tasks')">
+          <div class="flex">
+            <div class="tool-ic"><i class="fa-solid fa-square-check"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">Tasks</div>
+          <div class="c-des">Task tracker</div>
+        </div>
+        <div class="tool" onclick="goToPage('view-notes')">
+          <div class="flex">
+            <div class="tool-ic"><i class="fa-solid fa-note-sticky"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">Notes</div>
+          <div class="c-des">Quick notes</div>
+        </div>
+        <div class="tool" onclick="goToPage('view-lofi')">
+          <div class="flex">
+            <div class="tool-ic"><i class="fa-solid fa-music"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">Lofi</div>
+          <div class="c-des">Premium music</div>
+        </div>
+        <div class="tool" onclick="goToPage('view-ai-doubt')">
+          <div class="flex">
+            <div class="tool-ic"><i class="fa-solid fa-robot"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">AI Doubt</div>
+          <div class="c-des">Instant help lane</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="s-tit">Services</div>
+      <div class="grid2">
+        <div class="tool" onclick="openTelegram()">
+          <div class="flex">
+            <div class="tool-ic" style="color: #3b82f6; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);"><i class="fa-brands fa-telegram"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">Telegram</div>
+          <div class="c-des">Join our channel</div>
+        </div>
+        <div class="tool" onclick="openYoutube()">
+          <div class="flex">
+            <div class="tool-ic" style="color: #ef4444; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2);"><i class="fa-brands fa-youtube"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">YouTube</div>
+          <div class="c-des">Watch tutorials</div>
+        </div>
+        <div class="tool" onclick="openInstagram()">
+          <div class="flex">
+            <div class="tool-ic" style="color: #ec4899; background: rgba(236, 72, 153, 0.1); border-color: rgba(236, 72, 153, 0.2);"><i class="fa-brands fa-instagram"></i></div>
+          </div>
+          <div class="c-tit" style="font-size:15px">Instagram</div>
+          <div class="c-des">Follow for updates</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FOCUS SCREEN ================= -->
+<div id="view-focus" class="view">
+  <div class="wrap">
+    <div class="flex top">
+      <button class="btn-icon" onclick="goToPage('view-tools')" style="border:1px solid var(--border-light)"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="brand" style="font-size:22px">Deep Focus</div>
+      <div style="width:38px"></div>
+    </div>
+    
+    <div class="t-wrap" id="timer-wrap">
+      <div class="t-ring-outer"></div>
+      <div class="t-ring-inner"></div>
+      <svg class="t-svg" viewBox="0 0 250 250">
+        <circle class="t-bg" cx="125" cy="125" r="115"/>
+        <circle class="t-pr" id="t-pr" cx="125" cy="125" r="115"/>
+      </svg>
+      <div class="t-txt" id="t-txt">25:00</div>
+    </div>
+
+    <div class="t-btns">
+      <button class="t-btn active" id="btn-25" onclick="setupTimer(25,'btn-25')">25m</button>
+      <button class="t-btn" id="btn-45" onclick="setupTimer(45,'btn-45')">45m</button>
+      <button class="t-btn" id="btn-60" onclick="setupTimer(60,'btn-60')">60m</button>
+      <button class="t-btn" id="btn-90" onclick="setupTimer(90,'btn-90')">90m</button>
+    </div>
+    <div class="t-ctrl">
+      <button class="btn-lg btn-rst" onclick="resetTimer()"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+      <button class="btn-lg btn-start" id="s-btn" onclick="toggleTimer()"><i class="fa-solid fa-play"></i> Start</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= BATCHES/SERVER SCREEN ================= -->
+<div id="view-batchee" class="view">
+  <div class="wrap">
+    <div class="flex top">
+      <button class="btn-icon" onclick="goToPage('view-tools')" style="border:1px solid var(--border-light)"><i class="fa-solid fa-arrow-left"></i></button>
+      <div style="width:38px"></div>
+    </div>
+    <div class="srv-head">
+      <div class="srv-tit">Lecture<br><span style="color: var(--accent);">Access.</span></div>
+      <div class="srv-sub">Open your selected institute directly.</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-rock" id="lock-icon">🎓</div>
+      <div class="sc-tit" id="lock-title">LECTURES READY</div>
+      <div class="sc-des" id="lock-desc">Your selected institute can be opened directly.</div>
+      <div class="sc-row">
+        <div class="sc-pill"><span style="color: var(--accent);">Status:</span> <span id="key-status-text" style="color:#10b981; font-weight: 900;">AVAILABLE</span></div>
+        <div class="sc-pill"><span style="color: var(--accent);">Access:</span> <span id="key-expiry-text">Direct</span></div>
+      </div>
+
+      <div id="key-success-area">
+        <button class="btn-open" style="background: linear-gradient(135deg, #10b981, #059669); box-shadow:0 10px 30px rgba(16,185,129,0.3);" onclick="openInstitute()">OPEN SELECTED INSTITUTE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TASKS SCREEN ================= -->
+<div id="view-tasks" class="view">
+  <div class="wrap">
+    <div class="flex top">
+      <button class="btn-icon" onclick="goToPage('view-tools')" style="border:1px solid var(--border-light)"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="brand" style="font-size:22px">My Tasks</div>
+      <div style="width:38px"></div>
+    </div>
+    <div class="sec" style="margin-top:24px;">
+      <div class="s-tit">Add New Target</div>
+      <input type="text" id="task-name" class="t-inp" placeholder="Aaj kya padhna hai? (e.g. Physics Chapter 1)">
+      <input type="text" id="task-time" class="t-inp" placeholder="Kitne time lagana hai? (e.g. 2 Hours)" style="margin-top:12px;">
+      <button class="btn-add" onclick="addTask()"><i class="fa-solid fa-plus"></i> Add Target</button>
+    </div>
+    <div class="sec">
+      <div class="s-tit">Today's Study List</div>
+      <div id="task-container" class="task-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= NOTES SCREEN ================= -->
+<div id="view-notes" class="view">
+  <div class="wrap">
+    <div class="flex top">
+      <button class="btn-icon" onclick="goToPage('view-tools')" style="border:1px solid var(--border-light)"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="brand" style="font-size:22px">My Notes</div>
+      <div style="width:38px"></div>
+    </div>
+    <div class="sec" style="margin-top:24px;">
+      <div class="s-tit">Search Notes</div>
+      <input type="text" id="note-search" class="t-inp" placeholder="Search title or content..." oninput="renderNotes()">
+    </div>
+    <div class="sec">
+      <div class="s-tit">Add / Edit Note</div>
+      <input type="text" id="note-title" class="t-inp" placeholder="Note heading">
+      <textarea id="note-text" class="t-inp" rows="5" placeholder="Yahan apna note likho..." style="margin-top:12px;"></textarea>
+      <div class="grid2" style="margin-top:12px;">
+        <div class="mode" style="cursor:default; justify-content:flex-start;">
+          <div class="m-ic"><i class="fa-solid fa-palette"></i></div>
+          <input type="color" id="note-color" value="#0ea5e9" style="width:100%; height:44px; border:none; background:transparent; padding:0; cursor:pointer;">
+        </div>
+        <div class="mode" onclick="togglePinDraft()">
+          <div class="flex" style="gap:12px;">
+            <div class="m-ic"><i class="fa-solid fa-thumbtack"></i></div>
+            <div>
+              <div class="c-tit" style="font-size:14px">Pin Note</div>
+              <div class="c-des">Keep on top</div>
+            </div>
+          </div>
+          <div class="dot" id="pin-dot"></div>
+        </div>
+      </div>
+      <button class="btn-add" id="save-note-btn" onclick="saveNote()"><i class="fa-solid fa-floppy-disk"></i> Save Note</button>
+      <button class="btn-add" id="cancel-edit-btn" onclick="cancelEdit()" style="display:none; background:#64748b; box-shadow: 0 8px 20px rgba(100,116,139,0.3);"><i class="fa-solid fa-xmark"></i> Cancel Edit</button>
+    </div>
+    <div class="sec">
+      <div class="s-tit">Saved Notes</div>
+      <div id="notes-container" class="notes-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= LOFI SCREEN ================= -->
+<div id="view-lofi" class="view">
+  <div class="wrap">
+    <div class="flex top">
+      <button class="btn-icon" onclick="goToPage('view-tools')" style="border:1px solid var(--border-light)"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="brand" style="font-size:22px">Lofi Mode</div>
+      <div style="width:38px"></div>
+    </div>
+    <div class="sec" style="margin-top:24px;">
+      <div class="s-tit">Now Playing</div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:68px;height:68px;border-radius:22px;background:linear-gradient(135deg,var(--accent),var(--accentSoft));display:grid;place-items:center;font-size:30px; box-shadow: 0 5px 15px var(--accentSoft); border: 1px solid rgba(255,255,255,0.1);"><i class="fa-solid fa-music"></i></div>
+        <div style="flex:1;">
+          <div id="lofi-title" style="font-size:18px;font-weight:800;margin-bottom:4px;color:var(--text);">Loading...</div>
+          <div id="lofi-source" style="font-size:13px;color:var(--muted);font-weight:500;">Fetching admin track</div>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="s-tit">Progress</div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:600;">
+        <span id="lofi-current">00:00</span>
+        <span id="lofi-duration">00:00</span>
+      </div>
+      <div class="lofi-bar" onclick="seekLofi(event)"><div class="lofi-fill" id="lofi-fill"></div></div>
+    </div>
+    <div class="sec">
+      <div class="s-tit">Controls</div>
+      <div class="lofi-controls">
+        <button class="btn-lofi" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
+        <button class="btn-lofi btn-lofi-play" id="lofi-play" onclick="toggleLofi()"><i class="fa-solid fa-play"></i></button>
+        <button class="btn-lofi" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="s-tit">Volume</div>
+      <input type="range" id="lofi-volume" min="0" max="1" step="0.01" value="0.7" oninput="setLofiVolume(this.value)">
+    </div>
+    <div class="sec">
+      <div class="s-tit">Playlist</div>
+      <div id="lofi-list" class="lofi-list"></div>
+    </div>
+  </div>
+  <audio id="lofi-audio" preload="metadata"></audio>
+</div>
+
+<!-- ================= AI DOUBT SCREEN ================= -->
+<div id="view-ai-doubt" class="view">
+  <div class="wrap">
+    <div class="flex top">
+      <button class="btn-icon" onclick="goToPage('view-tools')" style="border:1px solid var(--border-light)"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="brand" style="font-size:22px">AI Doubt</div>
+      <button class="btn-icon" onclick="clearAIDoubt()" style="border:1px solid var(--border-light)"><i class="fa-solid fa-broom"></i></button>
+    </div>
+    <div class="sec" style="margin-top:24px;">
+      <div class="s-tit">Ask Your Doubt</div>
+      <textarea id="ai-question" class="t-inp" rows="5" placeholder="Apna question type karo..."></textarea>
+      <button class="btn-add" onclick="askAIDoubt()"><i class="fa-solid fa-paper-plane"></i> Ask AI</button>
+    </div>
+    <div class="sec">
+      <div class="s-tit">Answer</div>
+      <div id="ai-answer" style="white-space:pre-wrap;line-height:1.8;font-size:14px;color:var(--text);font-weight:500;">Yahan answer aayega...</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBY3aSyDCJX3TNhfeyqXD7N-IWrV91qk8c",
+  authDomain: "grow-study-new.firebaseapp.com",
+  databaseURL: "https://grow-study-new-default-rtdb.firebaseio.com",
+  projectId: "grow-study-new",
+  storageBucket: "grow-study-new.firebasestorage.app",
+  messagingSenderId: "703078535938",
+  appId: "1:703078535938:web:7f16fe8577d58b0868a81b"
+};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
+
+var appLinks={}; var currentSelectedInstitute="";
+var appSettings={telegramUrl:"", youtubeUrl:"", instagramUrl:""};
+
+db.ref('institute_links').on('value',s=>{if(s.exists())appLinks=s.val()});
+db.ref('app_settings').on('value',s=>{if(s.exists())appSettings=s.val()});
+
+// ================= ADVANCED NETWORK DETECTION SYSTEM =================
+let isAppOffline = false;
+
+async function checkRealInternet() {
+  if (!navigator.onLine) {
+    showOfflineBanner(true);
+    return false;
+  }
+  
+  try {
+    await fetch('https://www.google.com/favicon.ico?_=' + new Date().getTime(), { mode: 'no-cors', cache: 'no-store' });
+    showOfflineBanner(false);
+    return true;
+  } catch (error) {
+    showOfflineBanner(true);
+    return false;
+  }
+}
+
+function showOfflineBanner(status) {
+  isAppOffline = status;
+  const netOverlay = document.getElementById('network-status');
+  if (status) {
+    netOverlay.classList.remove('hidden'); 
+  } else {
+    netOverlay.classList.add('hidden'); 
+  }
+}
+
+window.addEventListener('online', checkRealInternet);
+window.addEventListener('offline', () => showOfflineBanner(true));
+setInterval(checkRealInternet, 3000);
+
+function checkNetworkAlert() {
+  if(isAppOffline || !navigator.onLine) {
+    alert("Bhai, lagta hai net band ho gaya hai. Padhai ke liye internet chalu karo! 🐼");
+    return false;
+  }
+  return true;
+}
+
+// ================= DYNAMIC CARDS FETCHING =================
+db.ref('institute_cards').on('value', s => {
+  const list = document.getElementById('institute-list');
+  list.innerHTML = ''; 
+  if (s.exists()) {
+    let cardsArr = [];
+    s.forEach(child => {
+      let inst = child.val();
+      inst.key = child.key;
+      inst.createdAt = inst.createdAt || 0; 
+      cardsArr.push(inst);
+    });
+
+    cardsArr.sort((a, b) => a.createdAt - b.createdAt);
+
+    cardsArr.forEach(inst => {
+      let key = inst.key;
+      list.innerHTML += `
+        <div class="card" onclick="selectInstitute('${key}')" id="card-${key}">
+          <div class="c-ic"><img src="${escapeHTML(inst.img)}" alt="logo" loading="lazy" decoding="async"></div>
+          <div class="c-txt">
+            <div class="c-tit">${escapeHTML(inst.name)}</div>
+            <div class="c-des">${escapeHTML(inst.desc)}</div>
+          </div>
+          <div class="c-arr"><i class="fa-solid fa-arrow-right"></i></div>
+        </div>
+      `;
+    });
+  } else {
+    list.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-folder-open" style="font-size:28px; margin-bottom:12px; opacity:0.5;"></i><br>Abhi koi institute nahi mila! 🐼</div>';
+  }
+});
+
+function goToPage(pageId){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if(pageId === 'view-batchee') updateBatcheeUI();
+}
+
+function selectInstitute(linkKey){
+  currentSelectedInstitute = linkKey;
+  document.querySelectorAll('.list .card').forEach(c=>c.classList.remove('active'));
+  var clickedCard = document.getElementById(`card-${linkKey}`);
+  if(clickedCard) clickedCard.classList.add('active');
+  goToPage('view-tools');
+}
+
+// ADDED NETWORK CHECK TO LINKS
+function openInstitute(){
+  if(!checkNetworkAlert()) return; 
+  if(appLinks[currentSelectedInstitute]&&appLinks[currentSelectedInstitute]!=""){window.location.href=appLinks[currentSelectedInstitute]}else{alert("Admin ne abhi tak is institute ka link update nahi kiya hai!")}
+}
+
+function changeColor(clr,elem){document.documentElement.style.setProperty('--accent',clr);document.documentElement.style.setProperty('--accentSoft',clr+'22');document.querySelectorAll('.c-dot').forEach(d=>d.classList.remove('active'));if(elem)elem.classList.add('active');if(document.getElementById('view-tasks').classList.contains('active'))renderTasks();if(document.getElementById('view-notes').classList.contains('active'))renderNotes()}
+function changeTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('thm',t)}catch(err){};document.querySelectorAll('.top-dark,.m-dark').forEach(x=>{if(t==='dark'){x.classList.add('active');x.classList.add('on')}else{x.classList.remove('active');x.classList.remove('on')}});document.querySelectorAll('.top-light,.m-light').forEach(x=>{if(t==='light'){x.classList.add('active');x.classList.add('on')}else{x.classList.remove('active');x.classList.remove('on')}})}
+
+var timerInterval=null, totalSeconds=25*60, remainingSeconds=totalSeconds, isTimerRunning=false, circleLength=722;
+function updateTimer(){var m=Math.floor(remainingSeconds/60),s=remainingSeconds%60;var txt=document.getElementById('t-txt');txt.innerText=(m<10?'0'+m:m)+":"+(s<10?'0'+s:s);var progress=remainingSeconds/totalSeconds;var prCircle=document.getElementById('t-pr');prCircle.style.strokeDashoffset=circleLength-(progress*circleLength);if(progress<0.2){prCircle.style.stroke='#ef4444';txt.style.background='linear-gradient(135deg, #fff 20%, #ef4444 100%)';txt.style.webkitBackgroundClip='text'}else if(progress<0.5){prCircle.style.stroke='#f59e0b';txt.style.background='linear-gradient(135deg, #fff 20%, #f59e0b 100%)';txt.style.webkitBackgroundClip='text'}else{prCircle.style.stroke='var(--accent)';txt.style.background='linear-gradient(135deg, #fff 20%, var(--accent) 100%)';txt.style.webkitBackgroundClip='text'}}
+function setupTimer(m,btnId){if(isTimerRunning)toggleTimer();document.querySelectorAll('.t-btn').forEach(b=>b.classList.remove('active'));document.getElementById(btnId).classList.add('active');totalSeconds=m*60;remainingSeconds=totalSeconds;updateTimer()}
+function toggleTimer(){var b=document.getElementById('s-btn');var wrap=document.getElementById('timer-wrap');if(isTimerRunning){clearInterval(timerInterval);b.innerHTML='<i class="fa-solid fa-play"></i> Start';b.style.background='var(--pill)';b.style.color='var(--text)';wrap.classList.remove('is-running')}else{timerInterval=setInterval(function(){remainingSeconds--;updateTimer();if(remainingSeconds<=0){clearInterval(timerInterval);isTimerRunning=false;b.innerHTML='<i class="fa-solid fa-play"></i> Start';wrap.classList.remove('is-running')}},1000);b.innerHTML='<i class="fa-solid fa-pause"></i> Pause';b.style.background='var(--accent)';b.style.color='#fff';wrap.classList.add('is-running')}isTimerRunning=!isTimerRunning}
+function resetTimer(){if(isTimerRunning)toggleTimer();document.getElementById('timer-wrap').classList.remove('is-running');remainingSeconds=totalSeconds;updateTimer();var b=document.getElementById('s-btn');b.innerHTML='<i class="fa-solid fa-play"></i> Start';b.style.background='var(--accent)';b.style.color='#fff';document.getElementById('t-pr').style.stroke='var(--accent)';document.getElementById('t-txt').style.background='linear-gradient(135deg, #fff 20%, var(--accent) 100%)';document.getElementById('t-txt').style.webkitBackgroundClip='text'}
+
+var tasksList=JSON.parse(localStorage.getItem('grow_tasks'))||[];
+function renderTasks(){var c=document.getElementById('task-container');c.innerHTML='';if(!tasksList.length){c.innerHTML='<div class="empty-msg"><i class="fa-solid fa-clipboard-list" style="font-size:36px;margin-bottom:12px;display:block;color:var(--accentSoft);"></i>Abhi tak koi target nahi banaya.<br>Target set karo aur padhai chalu karo!</div>';return}for(var i=0;i<tasksList.length;i++){var task=tasksList[i],doneClass=task.completed?'done':'',iconClass=task.completed?'fa-rotate-left':'fa-check',doneBg=task.completed?'background:#f59e0b;':'background:#10b981;';c.innerHTML+=`<div class="task-item ${doneClass}"><div class="t-info"><div class="t-name">${escapeHTML(task.name)}</div><div class="t-time"><i class="fa-regular fa-clock"></i> ${escapeHTML(task.time)}</div></div><div class="t-actions"><button class="btn-act" style="${doneBg}" onclick="toggleTask(${i})"><i class="fa-solid ${iconClass}"></i></button><button class="btn-act btn-del" onclick="deleteTask(${i})"><i class="fa-solid fa-trash"></i></button></div></div>`}}
+function addTask(){var n=document.getElementById('task-name'),t=document.getElementById('task-time');if(n.value.trim()===''){alert('Padhna kya hai wo toh likho target mein!');return}tasksList.push({name:n.value.trim(),time:t.value.trim()||'No fixed time',completed:false});n.value='';t.value='';saveAndRenderTasks()}
+function toggleTask(i){tasksList[i].completed=!tasksList[i].completed;saveAndRenderTasks()}
+function deleteTask(i){tasksList.splice(i,1);saveAndRenderTasks()}
+function saveAndRenderTasks(){localStorage.setItem('grow_tasks',JSON.stringify(tasksList));renderTasks()}
+
+var notesList=JSON.parse(localStorage.getItem('grow_notes'))||[],editingNoteId=null,pinDraft=false;
+function saveNotes(){localStorage.setItem('grow_notes',JSON.stringify(notesList))}
+function togglePinDraft(){pinDraft=!pinDraft;var d=document.getElementById('pin-dot');d.style.background=pinDraft?'#10b981':'var(--border-light)';d.style.boxShadow=pinDraft?'0 0 12px #10b981':'none'}
+function renderNotes(){var c=document.getElementById('notes-container');var q=(document.getElementById('note-search')?.value||'').trim().toLowerCase();var list=notesList.slice().sort(function(a,b){return(b.pinned===true)-(a.pinned===true)});if(q)list=list.filter(function(n){return(n.title||'').toLowerCase().includes(q)||(n.text||'').toLowerCase().includes(q)});c.innerHTML='';if(!list.length){c.innerHTML='<div class="empty-msg"><i class="fa-solid fa-note-sticky" style="font-size:36px;margin-bottom:12px;display:block;color:var(--accentSoft);"></i>Abhi tak koi note nahi mila.<br>Note add karo ya search clear karo!</div>';return}for(var i=0;i<list.length;i++){var note=list[i],pinnedHTML=note.pinned?'<span class="note-badge" style="background:rgba(251,191,36,.12);color:#fbbf24; border-color: rgba(251,191,36,0.3);">PINNED</span>':'',color=note.color||'#0ea5e9';c.innerHTML+=`<div class="note-item ${note.pinned?'pinned':''}" style="border-left:5px solid ${color};"><div class="note-content"><div class="note-head"><div class="note-title" style="color:${color};">${escapeHTML(note.title||'Untitled')}</div>${pinnedHTML}</div><div class="note-text">${escapeHTML(note.text||'')}</div><div class="note-meta" style="margin-top: 8px;"><span class="note-badge"><span class="note-color-dot" style="background:${color};"></span> Highlight</span> <span class="note-badge"><i class="fa-regular fa-clock"></i> ${escapeHTML(note.time||'')}</span></div></div><div class="note-actions" style="flex-direction: column;"><button class="btn-act" style="background:#f59e0b;" onclick="editNote('${note.id}')"><i class="fa-solid fa-pen"></i></button><button class="btn-act" style="background:${note.pinned?'#10b981':'#64748b'};" onclick="togglePin('${note.id}')"><i class="fa-solid fa-thumbtack"></i></button><button class="btn-act btn-del" onclick="deleteNote('${note.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`}}
+function saveNote(){var ti=document.getElementById('note-title'),te=document.getElementById('note-text'),co=document.getElementById('note-color');var title=ti.value.trim(),text=te.value.trim(),color=co.value||'#0ea5e9';if(title===''&&text===''){alert('Kuch note likho pehle!');return}if(editingNoteId){var idx=notesList.findIndex(n=>n.id===editingNoteId);if(idx!==-1){notesList[idx].title=title||'Untitled';notesList[idx].text=text;notesList[idx].color=color;notesList[idx].pinned=pinDraft;notesList[idx].updatedAt=Date.now()}editingNoteId=null;document.getElementById('save-note-btn').innerHTML='<i class="fa-solid fa-floppy-disk"></i> Save Note';document.getElementById('cancel-edit-btn').style.display='none'}else{var now=new Date();notesList.unshift({id:Date.now().toString()+Math.random().toString(36).slice(2),title:title||'Untitled',text:text,color:color,pinned:pinDraft,time:now.toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),createdAt:Date.now(),updatedAt:Date.now()})}ti.value='';te.value='';co.value='#0ea5e9';pinDraft=false;document.getElementById('pin-dot').style.background='var(--border-light)';document.getElementById('pin-dot').style.boxShadow='none';saveNotes();renderNotes()}
+function editNote(id){var note=notesList.find(n=>n.id===id);if(!note)return;editingNoteId=id;document.getElementById('note-title').value=note.title||'';document.getElementById('note-text').value=note.text||'';document.getElementById('note-color').value=note.color||'#0ea5e9';pinDraft=!!note.pinned;document.getElementById('pin-dot').style.background=pinDraft?'#10b981':'var(--border-light)';document.getElementById('pin-dot').style.boxShadow=pinDraft?'0 0 12px #10b981':'none';document.getElementById('save-note-btn').innerHTML='<i class="fa-solid fa-floppy-disk"></i> Update Note';document.getElementById('cancel-edit-btn').style.display='flex'}
+function cancelEdit(){editingNoteId=null;document.getElementById('note-title').value='';document.getElementById('note-text').value='';document.getElementById('note-color').value='#0ea5e9';pinDraft=false;document.getElementById('pin-dot').style.background='var(--border-light)';document.getElementById('pin-dot').style.boxShadow='none';document.getElementById('save-note-btn').innerHTML='<i class="fa-solid fa-floppy-disk"></i> Save Note';document.getElementById('cancel-edit-btn').style.display='none'}
+function deleteNote(id){notesList=notesList.filter(n=>n.id!==id);if(editingNoteId===id)cancelEdit();saveNotes();renderNotes()}
+function togglePin(id){var note=notesList.find(n=>n.id===id);if(!note)return;note.pinned=!note.pinned;note.updatedAt=Date.now();saveNotes();renderNotes()}
+function escapeHTML(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+
+var lofiAudio=document.getElementById('lofi-audio'),lofiPlayBtn=document.getElementById('lofi-play'),lofiTitleEl=document.getElementById('lofi-title'),lofiSourceEl=document.getElementById('lofi-source'),lofiCurrentEl=document.getElementById('lofi-current'),lofiDurationEl=document.getElementById('lofi-duration'),lofiFillEl=document.getElementById('lofi-fill'),lofiListEl=document.getElementById('lofi-list'),lofiVolumeEl=document.getElementById('lofi-volume');
+var lofiPlaylist=[],currentLofiIndex=0;
+function loadLofiPlaylist(){db.ref('lofi_songs').on('value',function(snapshot){var arr=[];snapshot.forEach(function(child){var v=child.val()||{};arr.push({id:child.key,title:v.title||'Untitled Lofi',url:v.url||'',source:v.source||'Admin Panel',createdAt:v.createdAt||0})});arr.sort(function(a,b){return (b.createdAt||0)-(a.createdAt||0)});lofiPlaylist=arr;if(!lofiPlaylist.length){lofiTitleEl.innerText='No song found';lofiSourceEl.innerText='Admin panel empty';lofiListEl.innerHTML='<div class="empty-msg">No songs available right now.</div>';lofiAudio.removeAttribute('src');lofiAudio.load();return}if(currentLofiIndex>=lofiPlaylist.length) currentLofiIndex=0;renderLofiPlaylist();loadCurrentLofiTrack()})}
+function renderLofiPlaylist(){if(!lofiListEl) return;lofiListEl.innerHTML='';for(var i=0;i<lofiPlaylist.length;i++){var track=lofiPlaylist[i],active=i===currentLofiIndex?'active':'';lofiListEl.innerHTML+=`<div class="lofi-track ${active}" onclick="selectLofiTrack(${i})"><div class="lofi-track-info"><div class="lofi-track-title">${escapeHTML(track.title)}</div><div class="lofi-track-sub">${escapeHTML(track.source)}</div></div><button class="lofi-small-btn" onclick="event.stopPropagation(); playSelectedTrack(${i})"><i class="fa-solid fa-play"></i></button></div>`}}
+function loadCurrentLofiTrack(){if(!lofiPlaylist.length) return;var track=lofiPlaylist[currentLofiIndex];lofiAudio.src=track.url;lofiTitleEl.innerText=track.title;lofiSourceEl.innerText=track.source;renderLofiPlaylist()}
+function toggleLofi(){if(!lofiAudio.src)loadCurrentLofiTrack();if(lofiAudio.paused){lofiAudio.play();lofiPlayBtn.innerHTML='<i class="fa-solid fa-pause"></i>'}else{lofiAudio.pause();lofiPlayBtn.innerHTML='<i class="fa-solid fa-play"></i>'}}
+function playSelectedTrack(index){currentLofiIndex=index;loadCurrentLofiTrack();lofiAudio.play();lofiPlayBtn.innerHTML='<i class="fa-solid fa-pause"></i>'}
+function prevTrack(){if(!lofiPlaylist.length)return;currentLofiIndex=(currentLofiIndex-1+lofiPlaylist.length)%lofiPlaylist.length;loadCurrentLofiTrack();lofiAudio.play();lofiPlayBtn.innerHTML='<i class="fa-solid fa-pause"></i>'}
+function setLofiVolume(v){lofiAudio.volume=Number(v)}
+function formatTime(sec){if(!isFinite(sec))return'00:00';var m=Math.floor(sec/60),s=Math.floor(sec%60);return(m<10?'0'+m:m)+':'+(s<10?'0'+s:s)}
+function seekLofi(e){if(!lofiAudio.duration)return;var rect=e.currentTarget.getBoundingClientRect();var percent=(e.clientX-rect.left)/rect.width;lofiAudio.currentTime=percent*lofiAudio.duration}
+lofiAudio.addEventListener('timeupdate',function(){if(!lofiAudio.duration)return;lofiCurrentEl.innerText=formatTime(lofiAudio.currentTime);lofiDurationEl.innerText=formatTime(lofiAudio.duration);lofiFillEl.style.width=((lofiAudio.currentTime/lofiAudio.duration)*100)+'%'});
+lofiAudio.addEventListener('ended',function(){nextTrack()});lofiAudio.addEventListener('play',function(){lofiPlayBtn.innerHTML='<i class="fa-solid fa-pause"></i>'});lofiAudio.addEventListener('pause',function(){lofiPlayBtn.innerHTML='<i class="fa-solid fa-play"></i>'});
+
+const GEMINI_API_KEY="AIzaSyAB2asxzJGGasAUcA6tTde4NXdR4qkkcfE";
+async function askAIDoubt(){
+  if(!checkNetworkAlert()) return; // Network check for AI
+  const q=document.getElementById('ai-question').value.trim();
+  const ans=document.getElementById('ai-answer');
+  if(!q){alert('Pehle apna question likho');return}
+  ans.innerText='Soch raha hoon...';
+  try{
+    const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
+    const response=await fetch(url,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-goog-api-key':GEMINI_API_KEY
+      },
+      body:JSON.stringify({
+        contents:[{
+          role:"user",
+          parts:[{
+            text:`You are a helpful student tutor. Answer in simple Hindi, step by step, concise but clear.
+Question: ${q}`
+          }]
+        }]
+      })
+    });
+    const data=await response.json();
+    if(data.error){ans.innerText='Error: '+data.error.message;return}
+    const text=data?.candidates?.[0]?.content?.parts?.map(p=>p.text).join('')||'No answer received';
+    ans.innerText=text;
+  }catch(err){
+    ans.innerText='Error: answer nahi aa saka';
+  }
+}
+function clearAIDoubt(){document.getElementById('ai-question').value='';document.getElementById('ai-answer').innerText='Yahan answer aayega...'}
+
+function updateBatcheeUI() {
+  document.getElementById('lock-icon').innerText = '🎓';
+  document.getElementById('lock-title').innerText = 'LECTURES READY';
+  document.getElementById('lock-title').style.color = '#10b981';
+  document.getElementById('lock-desc').innerText = 'Your selected institute can be opened directly.';
+  document.getElementById('key-status-text').innerText = 'AVAILABLE';
+  document.getElementById('key-status-text').style.color = '#10b981';
+  document.getElementById('key-expiry-text').innerText = 'Direct';
+  document.getElementById('key-expiry-text').style.color = '#fff';
+}
+
+function openTelegram() {
+  if(!checkNetworkAlert()) return;
+  if(appSettings.telegramUrl && appSettings.telegramUrl !== "") { window.open(appSettings.telegramUrl, '_blank'); } 
+  else { alert("Admin ne abhi Telegram link add nahi kiya hai!"); }
+}
+function openYoutube() {
+  if(!checkNetworkAlert()) return;
+  if(appSettings.youtubeUrl && appSettings.youtubeUrl !== "") { window.open(appSettings.youtubeUrl, '_blank'); } 
+  else { alert("Admin ne abhi YouTube link add nahi kiya hai!"); }
+}
+function openInstagram() {
+  if(!checkNetworkAlert()) return;
+  if(appSettings.instagramUrl && appSettings.instagramUrl !== "") { window.open(appSettings.instagramUrl, '_blank'); } 
+  else { alert("Admin ne abhi Instagram link add nahi kiya hai!"); }
+}
+
+// Splash screen timer
+setTimeout(function() {
+  var splash = document.getElementById('splash-screen');
+  if (splash) splash.classList.add('hidden');
+}, 1500);
+
+document.addEventListener("DOMContentLoaded", function() {
+  var savedTheme='dark';
+  try { savedTheme=localStorage.getItem('thm')||'dark' } catch(err){}
+  changeTheme(savedTheme);
+  
+  // Call initial network check silently
+  setTimeout(checkRealInternet, 1000);
+
+  var tpr = document.getElementById('t-pr');
+  if (tpr) tpr.style.strokeDasharray = circleLength;
+  updateTimer(); renderTasks(); renderNotes(); loadLofiPlaylist(); setLofiVolume(0.7);
+});
+</script>
+
+<!-- ================= ANTI-COPY SECURITY SHIELD ================= -->
+<script>
+  // 1. Right Click Disable
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  // 2. Keyboard Shortcuts Block (F12, Ctrl+U, Ctrl+Shift+I, etc.)
+  document.onkeydown = function(e) {
+    if (e.keyCode === 123) return false;
+    if (e.ctrlKey && e.keyCode === 85) return false;
+    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) return false;
+    if (e.metaKey && e.altKey && e.keyCode === 73) return false;
+  };
+
+  // 3. DevTools Anti-Tamper Trap
+  setInterval(function() {
+    var before = new Date().getTime();
+    debugger;
+    var after = new Date().getTime();
+    if (after - before > 100) {
+      document.body.innerHTML = "<h2 style='color:#ef4444; text-align:center; margin-top:20%; font-family:sans-serif;'>Access Denied. 🐼</h2>";
+    }
+  }, 1000);
+</script>
+</body>
+</html>
